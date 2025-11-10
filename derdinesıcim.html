@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Derdinin Ağzına Sıç</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #ffffff);
+      color: #222;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ff4c4c;
+      transition: 0.3s;
+    }
+
+    textarea {
+      width: 80%;
+      max-width: 500px;
+      height: 120px;
+      border-radius: 10px;
+      border: none;
+      padding: 10px;
+      font-size: 1rem;
+      resize: none;
+      outline: none;
+      background-color: #333;
+      color: #fff;
+      margin-bottom: 15px;
+      transition: 0.3s;
+    }
+
+    button {
+      background-color: #ff4c4c;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      margin: 5px;
+    }
+
+    button:hover {
+      background-color: #ff2a2a;
+      transform: scale(1.05);
+    }
+
+    #response {
+      margin-top: 25px;
+      font-size: 1.2rem;
+      color: #ff4c4c;
+      min-height: 40px;
+    }
+
+    #langBtn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <button id="langBtn" onclick="switchLang()">English</button>
+  <h1 id="title">Seni gıcık eden dertlerini yaz 😤</h1>
+  <textarea id="dertin" placeholder="İçini dök bakalım..."></textarea><br>
+  <button id="submitBtn" onclick="gonder()">Gönder</button>
+
+  <div id="response"></div>
+
+  <script>
+    let lang = "tr";
+
+    const texts = {
+      tr: {
+        title: "Seni gıcık eden dertlerini yaz 😤",
+        placeholder: "Gönder gelsin...",
+        submit: "Gönder",
+        empty: "Bi' şey yazmadın ki 🙃",
+        answers: [
+          "Derdinin Başarıyla Ağzına Sıçıldı 😎",
+        ]
+      },
+      en: {
+        title: "Write down what’s bugging you 😤",
+        placeholder: "Let it all out...",
+        submit: "Send",
+        empty: "You didn’t write anything 🙃",
+        answers: [
+          "Let it go... it’ll pass 🍃",
+
+        ]
+      }
+    };
+
+    function gonder() {
+      const yazi = document.getElementById("dertin").value.trim();
+      const response = document.getElementById("response");
+      const t = texts[lang];
+
+      if (yazi === "") {
+        response.textContent = t.empty;
+      } else {
+        const rastgele = t.answers[Math.floor(Math.random() * t.answers.length)];
+        response.textContent = rastgele;
+      }
+    }
+
+    function switchLang() {
+      lang = lang === "tr" ? "en" : "tr";
+      const t = texts[lang];
+
+      document.getElementById("title").textContent = t.title;
+      document.getElementById("dertin").placeholder = t.placeholder;
+      document.getElementById("submitBtn").textContent = t.submit;
+      document.getElementById("langBtn").textContent = lang === "tr" ? "English" : "Türkçe";
+      document.getElementById("response").textContent = ""; // dil değişince yanıt sıfırlansın
+    }
+  </script>
+</body>
+</html>
